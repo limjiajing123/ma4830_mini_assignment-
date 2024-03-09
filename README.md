@@ -6,7 +6,7 @@ The body mass index (BMI) is a value derived from the mass(kg) and height(m) of 
 
 The BMI is defined as the body mass divided by the square of the body height and is expressed in units of kg/m2. 
 
-𝐵𝑀𝐼 (𝑘𝑔/𝑚2) = 𝑀𝑎𝑠𝑠(𝑘𝑔) / 𝐻𝑒𝑖𝑔ℎ𝑡^2 (𝑚^2)
+𝐵𝑀𝐼 (𝑘𝑔/𝑚^2) = 𝑀𝑎𝑠𝑠(𝑘𝑔) / 𝐻𝑒𝑖𝑔ℎ𝑡^2 (𝑚^2)
 
 The BMI attempts to quantify the amount of tissue mass, muscle, fat, and bone, in an individual, and then categorise that person as underweight, normal weight, overweight, or obese based on that value.
 BMI is a measurement of a person's leanness based on their height and weight, and is intended to quantify tissue mass. It is widely used as a general indicator of whether a person has a healthy body weight for their height. 
