@@ -74,5 +74,9 @@ In VS code, open terminal and run command
 ```bash
 gcc mini_ca.c -o mini_ca
 ```
+**run the executable**
+```bash
+./mini_ca.exe
+```
 
 
