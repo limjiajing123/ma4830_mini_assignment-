@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-// Function to calculate BMI
+// Function to calculate BMI according to the formula
 float calculate_BMI(float weight, float height) {
     return weight / (height * height);
 }
@@ -23,7 +23,8 @@ void classify_BMI(float bmi, int is_asian) {
     
     char str[20];
     
-    if (is_asian) {
+    if (is_asian) //classify asian BMI low, normal, overweight or obese
+    {
         if (bmi < 18.5)
             {strcpy(str, "   Low    ");}
         else if (bmi >= 18.5 && bmi <= 23.0)
@@ -32,7 +33,8 @@ void classify_BMI(float bmi, int is_asian) {
             {strcpy(str, "Overweight");}
         else
             {strcpy(str, "  Obese   ");}
-    } else {
+    } else //classify non-asian BMI low, normal, overweight or obese
+    {
         if (bmi < 18.5)
             {strcpy(str, "   Low    ");}
         else if (bmi >= 18.5 && bmi <= 24.9)
@@ -42,7 +44,7 @@ void classify_BMI(float bmi, int is_asian) {
         else
             {strcpy(str, "  Obese   ");}
     }
-    printf(" %*s %.2f%*s %*s%s%*s \n", 8, "", bmi, 8, "", 6, "", str, 6, "");
+    printf(" %*s %.2f%*s %*s%s%*s \n", 8, "", bmi, 8, "", 6, "", str, 6, ""); //print BMI and their BMI status
 }
 
 // Function to provide recommendations
@@ -52,10 +54,12 @@ void body_weight_advice(float bmi, float height, int is_asian) {
             "|          Weight Change Recommendation       |\n"
             "|---------------------------------------------|\n");
     
-    float idealBMI;
+    //declaring variables
+    float idealBMI;  
     float lower_normal_BMI;
     float upper_normal_BMI;
 
+    //setting bmi value based on is_asian and non-asian bmi values 
     if (is_asian) {
         lower_normal_BMI = 18.5;
         upper_normal_BMI = 23.0;
@@ -73,7 +77,8 @@ void body_weight_advice(float bmi, float height, int is_asian) {
     printf("| Normal range for BMI : %.2f kg to %.2f kg |\n", lower_normal_BMI, upper_normal_BMI);
     printf("|---------------------------------------------|\n");
 
-    if (bmi > upper_normal_BMI) {
+    if (bmi > upper_normal_BMI) //if BMI is above normal range, exercise advice is given
+    {
         printf("| You should consider reducing your weight by |\n");
         printf("%*s%.2f kg to %.2f kg %*s\n", 12, "",upper_bound, lower_bound, 12, "");
         printf("|%*sto reach within a normal BMI Range.%*s|\n", 5, "", 5, "");
@@ -87,7 +92,8 @@ void body_weight_advice(float bmi, float height, int is_asian) {
                 "|---------------------------------------------|\n\n");
 
     } 
-    if (bmi < lower_normal_BMI) {
+    if (bmi < lower_normal_BMI) //if BMI is below normal range, lifestyle advice is given
+    { 
         printf("|You should consider increasing your weight by|\n");
         printf("%*s%.2f kg to %.2f kg %*s\n", 12, "",lower_bound, upper_bound, 12, "");
         printf("|%*sto reach within a normal BMI Range.%*s|\n", 5, "", 5, "");
@@ -100,7 +106,7 @@ void body_weight_advice(float bmi, float height, int is_asian) {
                 "|5.Avoid excessive exercise                   |\n"
                 "|---------------------------------------------|\n\n");
     }
-    if (bmi >= lower_normal_BMI && bmi <= upper_normal_BMI)
+    if (bmi >= lower_normal_BMI && bmi <= upper_normal_BMI) //if BMI is within normal range, lifestyle advice is given
     {
         printf( 
                 "|       You are within the normal range       |\n"
@@ -110,15 +116,15 @@ void body_weight_advice(float bmi, float height, int is_asian) {
 }
 
 // Function to check if input is valid
-bool is_valid(const char *str) {
+bool is_valid(const char *str) { 
     
-    if (str == NULL || *str == '\0') {
+    if (str == NULL || *str == '\0') { //check if input is null or empty
         return false;
     }
 
     while (*str != '\0') {
-        if (!isdigit(*str)) {return false;}
-        str++;
+        if (!isdigit(*str)) {return false;} //check if input is a number
+        str++; 
     }
 
     return true;
@@ -132,30 +138,30 @@ float get_user_input(const char *message, float min, float max, bool BMI_ref_sou
     char input[100];
 
     do {
-        printf("%s", message);
-        scanf("%s", input);
+        printf("%s", message);        //printing message to user from main function
+        scanf("%s", input);          //taking input from user in terms of string
         
         if (!is_valid(input)) 
         {printf("Invalid input. Please enter a number.\n");} 
         
         else {
             if (BMI_ref_source){
-                value = atoi(input);
-                if (value != 0 && value != 1) 
-                {printf("Invalid input. Please enter a value exactly %d or %d.\n", 0, 1);} 
+                value = atoi(input);   //atoi function converts string to integer
+                if (value != 0 && value != 1)  //if value is not 0 or 1
+                {printf("Invalid input. Please enter a value exactly %d or %d.\n", 0, 1);}  //ask user to enter 0 or 1
                 else
-                {isValidInput = true;}
+                {isValidInput = true;} //input is valid
             }
             else{
-                value = atof(input);
+                value = atof(input); //atof function converts string to float
                 if (value <= min || value > max) 
-                {printf("Invalid input. Please enter a value between %.2f and %.2f.\n", min, max);} 
+                {printf("Invalid input. Please enter a value between %.2f and %.2f.\n", min, max);} //ask user to enter value between min and max
                 else
-                {isValidInput = true;}
+                {isValidInput = true;}//input is valid
             }
         }
 
-    } while (!isValidInput);
+    } while (!isValidInput); //if input is not valid, reprompt
 
     return value;
 }
@@ -164,11 +170,12 @@ float get_user_input(const char *message, float min, float max, bool BMI_ref_sou
 int main() {
 
     // Accept inputs
-    float weight = get_user_input("Enter your weight in kg: ", 0, 300, false);
-    float height = get_user_input("Enter your height in cm: ", 0, 300, false) / 100;
-    int is_asian = get_user_input("Are you Asian? [Yes: 1, No: 0]: ", 0, 300, true);
+    //calling the function of get_user_input, printing message, weight limit,  BMI_ref_source to choose Asian or Non-Asian
+    float weight = get_user_input("Enter your weight in kg: ", 0, 300, false);  
+    float height = get_user_input("Enter your height in cm: ", 0, 300, false) / 100;      
+    int is_asian = get_user_input("Are you Asian? [Yes: 1, No: 0]: ", 0, 300, true);     
 
-    // Calculate BMI
+    // calling function to Calculate BMI
     float bmi = calculate_BMI(weight, height);
 
     // Output results in a table
@@ -185,8 +192,8 @@ int main() {
     printf(" %*s%.2f%*s %*s%.2f%*s\n", 8, "", weight, 10, "", 8, "", height, 8, "");
     printf("|---------------------------------------------|\n");
     
-    classify_BMI(bmi, is_asian);
-    body_weight_advice(bmi, height, is_asian);
+    classify_BMI(bmi, is_asian); //calling function to classify BMI
+    body_weight_advice(bmi, height, is_asian); //calling function to give advice based on BMI
 
     return 0;
 }
